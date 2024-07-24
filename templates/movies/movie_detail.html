@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h1>{{ movie.title }}</h1>
+      <p>{{ movie.description }}</p>
+      <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+      <p><strong>Genre:</strong> {{ movie.genre }}</p>
+      <p><strong>Director:</strong> {{ movie.director }}</p>
+      <p><strong>Cast:</strong> {{ movie.cast }}</p>
+    </div>
+    <div class="col-md-4">
+      <img src="{{ movie.poster.url }}" class="img-fluid" alt="{{ movie.title }} poster">
+    </div>
+  </div>
+  <h2 class="mt-4">Reviews</h2>
+  <div class="list-group">
+    {% for review in reviews %}
+      <div class="list-group-item">
+        <strong>{{ review.user.username }}</strong> - {{ review.rating }}/10
+        <p>{{ review.comment }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  <a href="{% url 'add_review' movie.pk %}" class="btn btn-primary mt-4">Add Review</a>
+  <a href="{% url 'add_rating' movie.pk %}" class="btn btn-secondary mt-4">Add Rating</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block title %}Movie List{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Movie List</h1>
+  <div class="list-group">
+    {% for movie in movies %}
+      <a href="{% url 'movie_detail' movie.pk %}" class="list-group-item list-group-item-action">
+        {{ movie.title }}
+      </a>
+    {% endfor %}
+  </div>
+  <a href="{% url 'add_movie' %}" class="btn btn-primary mt-4">Add Movie</a>
+{% endblock %}
