@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Movie, Review, Rating
-from .forms import MovieForm, ReviewForm, RatingForm
+from .models import Movie, Review
+from .forms import MovieForm, ReviewForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import UserRegisterForm
@@ -11,8 +11,9 @@ from django.contrib.auth import logout
 from .forms import UserLoginForm
 
 def movie_list(request):
+    current_user=request.user
     movies = Movie.objects.all()
-    return render(request, 'movies/movie_list.html', {'movies': movies})
+    return render(request, 'movies/movie_list.html', {'movies': movies,'user':current_user})
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
@@ -41,21 +42,21 @@ def add_review(request, movie_id):
             return redirect('movie_detail', pk=movie_id)
     else:
         form = ReviewForm()
-    return render(request, 'movies/review_form.html', {'form': form})
+    return render(request, 'movies/review_form.html', {'form': form,'movie':movie})
 
-def add_rating(request, movie_id):
-    movie = get_object_or_404(Movie, pk=movie_id)
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            rating = form.save(commit=False)
-            rating.user = request.user
-            rating.movie = movie
-            rating.save()
-            return redirect('movie_detail', pk=movie_id)
-    else:
-        form = RatingForm()
-    return render(request, 'movies/rating_form.html', {'form': form})
+# def add_rating(request, movie_id):
+#     movie = get_object_or_404(Movie, pk=movie_id)
+#     if request.method == 'POST':
+#         form = RatingForm(request.POST)
+#         if form.is_valid():
+#             rating = form.save(commit=False)
+#             rating.user = request.user
+#             rating.movie = movie
+#             rating.save()
+#             return redirect('movie_detail', pk=movie_id)
+#     else:
+#         form = RatingForm()
+#     return render(request, 'movies/rating_form.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':

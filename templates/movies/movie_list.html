@@ -1,14 +1,36 @@
+<!-- templates/movies/movie_list.html -->
+
 {% extends "base_generic.html" %}
+
 {% block title %}Movie List{% endblock %}
 
 {% block content %}
   <h1 class="mb-4">Movie List</h1>
-  <div class="list-group">
-    {% for movie in movies %}
-      <a href="{% url 'movie_detail' movie.pk %}" class="list-group-item list-group-item-action">
-        {{ movie.title }}
-      </a>
-    {% endfor %}
+
+  <!-- <a href="{% url 'add_movie' %}" class="btn btn-primary mt-4">Add Movie</a>
+ -->
+
+  <div class="container">
+    <div class="row">
+      {% for movie in movies %}
+      <div class="col-sm-6 mb-5">
+        <div class="card" style="min-height: 120px!;">
+          <div class="row">
+            <div class="col-4">
+              <img src="{{ movie.poster.url}}" class="img-thumbnail" style="min-height: 120px;" alt="...">
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text truncate mb-0">{{movie.description}}.</p>
+                <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary mt-4">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-  <a href="{% url 'add_movie' %}" class="btn btn-primary mt-4">Add Movie</a>
+  
 {% endblock %}

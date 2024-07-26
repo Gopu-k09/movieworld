@@ -13,12 +13,16 @@ class MovieForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['movie', 'rating', 'comment']
+        fields = ['rating', 'comment']
+        widgets = {
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '10', 'hidden': True}),
+        }
 
-class RatingForm(forms.ModelForm):
-    class Meta:
-        model = Rating
-        fields = ['movie', 'score']
+        def clean_rating(self):
+            rating = self.cleaned_data.get('rating')
+            if rating < 0 or rating >= 10:
+                raise forms.ValidationError('Rating must be between 0 and 10.')
+            return rating
 
 
 class UserLoginForm(AuthenticationForm):
@@ -45,7 +49,6 @@ class UserRegisterForm(UserCreationForm):
         if password1 and password2 and password1 != password2:
             raise ValidationError("Passwords do not match.")
         return password2
-
 
 
 

@@ -1,34 +1,84 @@
+<!-- templates/movies/register.html -->
+
 {% extends "base_generic.html" %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">Register</h1>
-  <form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      {{ form.username.label_tag }} {{ form.username }}
-      {% if form.username.errors %}
-        <div class="alert alert-danger">{{ form.username.errors }}</div>
-      {% endif %}
+<div class="center-content">
+    <div class="container border rounded py-5">
+        <h1 class="mb-4 text-center">Register</h1>
+        <form method="post" class="row g-3" style="justify-content: center;align-content: center;">
+            {% csrf_token %}
+            <div class="col col-md-6 col-sm-12">
+                <div class="col">
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" maxlength="150" autofocus="" required="" aria-describedby="id_username_helptext" id="id_username" fdprocessedid="zrqx3m">
+                    {% if form.username.errors %}
+                    <div class="alert alert-danger">{{ form.username.errors }}</div>
+                    {% endif %}
+                  </div>
+                <div class="col">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" maxlength="320" required="" id="id_email" fdprocessedid="1p7wj">
+                    {% if form.email.errors %}
+                    <div class="alert alert-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                  <div class="col">
+                    <label for="id_password1" class="form-label">Password</label>
+                    <input type="password" name="password1" class="form-control" autocomplete="new-password" required="" aria-describedby="id_password1_helptext" id="id_password1" fdprocessedid="ora4e">
+                    {% if form.password1.errors %}
+                    <div class="alert alert-danger">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                  <div class="col">
+                    <label for="id_password2" class="form-label">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" autocomplete="new-password" required="" aria-describedby="id_password2_helptext" id="id_password2" fdprocessedid="2lig7l">
+                    {% if form.password2.errors %}
+                    <div class="alert alert-danger">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+                  <div class="col-12 mt-3 text-center">
+                    <button type="submit" class="btn btn-success px-5">Register</button>
+                  </div>
+            </div>
+
+<!-- 
+            <div class="form-group">
+                {{ form.username.label_tag }} {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="alert alert-danger">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }} {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="alert alert-danger">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password1.label_tag }} {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label_tag }} {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="alert alert-danger">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button> -->
+
+
+
+
+
+
+        </form>
     </div>
-    <div class="form-group">
-      {{ form.email.label_tag }} {{ form.email }}
-      {% if form.email.errors %}
-        <div class="alert alert-danger">{{ form.email.errors }}</div>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.password1.label_tag }} {{ form.password1 }}
-      {% if form.password1.errors %}
-        <div class="alert alert-danger">{{ form.password1.errors }}</div>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.password2.label_tag }} {{ form.password2 }}
-      {% if form.password2.errors %}
-        <div class="alert alert-danger">{{ form.password2.errors }}</div>
-      {% endif %}
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
+    
+</div>
+
 {% endblock %}
