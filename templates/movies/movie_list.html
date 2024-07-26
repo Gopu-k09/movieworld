@@ -1,19 +1,26 @@
-<!-- templates/movies/movie_list.html -->
-
 {% extends "base_generic.html" %}
-
 {% block title %}Movie List{% endblock %}
-
 {% block content %}
-  <h1 class="mb-4">Movie List</h1>
-
-  <!-- <a href="{% url 'add_movie' %}" class="btn btn-primary mt-4">Add Movie</a>
- -->
-
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col col-md-6 col-sm-12">
+      <form method="get" class="row" action="{% url 'movie_search' %}" style="display:inline;">
+        <div class="col">
+          <input type="text" name="query" placeholder="Enter title, director, or cast..." required class="py-4 form-control">
+        </div>
+        <div class="col text-center mt-3">
+          <button type="submit" class="btn btn-light border px-5">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+  <h1 class="mb-4 roboto-bold">Movie List</h1>
   <div class="container">
     <div class="row">
       {% for movie in movies %}
-      <div class="col-sm-6 mb-5">
+      <div class="col-sm-12 col-md-6 mb-5">
         <div class="card" style="min-height: 120px!;">
           <div class="row">
             <div class="col-4">
@@ -21,7 +28,10 @@
             </div>
             <div class="col-8">
               <div class="card-body">
-                <h5 class="card-title">{{ movie.title }}</h5>
+                <span class="d-inline-block text-truncate" style="max-width: 270px;">
+                  <h5 class="card-title">{{ movie.title }}</h5>
+                </span>
+                <!-- <h5 class="card-title">{{ movie.title }}</h5> -->
                 <p class="card-text truncate mb-0">{{movie.description}}.</p>
                 <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary mt-4">Read More</a>
               </div>

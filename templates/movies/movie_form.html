@@ -2,8 +2,7 @@
 {% block title %}Add Movie{% endblock %}
 
 {% block content %}
-  <h1 class="mb-4">Add Movie</h1>
-  <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+  <!-- <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
     {% csrf_token %}
     <div class="form-group">
       {{ form.title.label_tag }} {{ form.title }}
@@ -26,6 +25,56 @@
     <div class="form-group">
       {{ form.poster.label_tag }} {{ form.poster }}
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-  </form>
+    <button type="submit" class="btn btn-primary">Save</button> -->
+
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <div class="row justify-content-center my-5">
+        <div class="col col-md-6 col-sm-12">
+          <div class="card-header text-center my-2">
+            <h1 class="baskervville-sc-regular">Add Movie</h1>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p class="my-2">
+                {% if form.title.errors %}
+                    <div class="alert alert-danger mt-2">All Fields Are Required!</div>
+                {% endif %}
+              </p>
+              <div class="mb-3">
+                <label for="id_title" class="form-label">Movie Name</label>
+                <input type="text" required class="form-control" name="title" maxlength="255" id="id_title" fdprocessedid="e79srk">
+              </div>
+              <div class="mb-3">
+                <label for="id_poster" class="form-label">Movie Poster</label>
+                <input type="file" class="form-control" name="poster" accept="image/*" required id="id_poster">
+              </div>
+              <div class="mb-3">
+                <label for="id_release_date" class="form-label">Released On</label>
+                <input type="date" class="form-control" name="release_date" required id="id_release_date" fdprocessedid="6cvr0g">
+              </div>
+              <div class="mb-3">
+                <label for="id_director" class="form-label">Director</label>
+                <input type="text" class="form-control" name="director" maxlength="255" required id="id_director" fdprocessedid="lsxazm">
+              </div>
+              <div class="mb-3">
+                <label for="id_genre" class="form-label">Genre</label>
+                <input type="text" class="form-control" name="genre" maxlength="255" required id="id_genre" fdprocessedid="ylxb9m">
+              </div>
+              <div class="mb-3">
+                <label for="id_cast" class="form-label">Cast</label>
+                <textarea name="cast" class="form-control" cols="40" rows="4" required id="id_cast"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="id_description" class="form-label">Short Story</label>
+                <textarea name="description" class="form-control" cols="40" rows="7" required id="id_description"></textarea>
+              </div>
+              <div class="row justify-content-center">
+                <button type="submit" class="btn btn-primary my-3 px-5">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
 {% endblock %}

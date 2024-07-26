@@ -9,16 +9,26 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from .forms import UserLoginForm
+from django.db.models import Q
+from .forms import MovieSearchForm
+
 
 def movie_list(request):
     current_user=request.user
+    review=Review.objects.prefetch_related('movie').all()
+    print(review[0])
     movies = Movie.objects.all()
     return render(request, 'movies/movie_list.html', {'movies': movies,'user':current_user})
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     reviews = Review.objects.filter(movie=movie)
-    return render(request, 'movies/movie_detail.html', {'movie': movie, 'reviews': reviews})
+    average_rating=0
+    total_review=reviews.count()
+    print(total_review)
+    if reviews:
+        average_rating = round(sum(review.rating for review in reviews) / reviews.count(),2)
+    return render(request, 'movies/movie_detail.html', {'movie': movie, 'reviews': reviews,'avg_rating':average_rating,'total':total_review})
 
 def add_movie(request):
     if request.method == 'POST':
@@ -43,20 +53,6 @@ def add_review(request, movie_id):
     else:
         form = ReviewForm()
     return render(request, 'movies/review_form.html', {'form': form,'movie':movie})
-
-# def add_rating(request, movie_id):
-#     movie = get_object_or_404(Movie, pk=movie_id)
-#     if request.method == 'POST':
-#         form = RatingForm(request.POST)
-#         if form.is_valid():
-#             rating = form.save(commit=False)
-#             rating.user = request.user
-#             rating.movie = movie
-#             rating.save()
-#             return redirect('movie_detail', pk=movie_id)
-#     else:
-#         form = RatingForm()
-#     return render(request, 'movies/rating_form.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -104,3 +100,19 @@ def logout_view(request):
     return redirect('login')
 
 
+def movie_search(request):
+    form = MovieSearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = MovieSearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Movie.objects.filter(
+                Q(title__icontains=query) |
+                Q(director__icontains=query) |
+                Q(cast__icontains=query)|
+                Q(release_date__icontains=query)|
+                Q(genre__icontains=query)
+            )
+    return render(request, 'movies/movie_search.html', {'form': form, 'query': query, 'results': results})

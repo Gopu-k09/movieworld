@@ -5,8 +5,15 @@
 {% block content %}
   <div class="row">
     <div class="col-md-8">
-      <h1>{{ movie.title }}</h1>
-      <p>{{ movie.description }}</p>
+      <div class="row" style="align-items: center">
+        <div class="col">
+          <h1 class="roboto-medium">{{ movie.title }}</h1>
+        </div>
+        <div class="col">
+          <h3 class="roboto-medium"><span class="text-warning mr-2">&#9733;</span>{{avg_rating}}/10 <span style="font-size: 12px;">({{total}})</span></h3>
+        </div>
+      </div>
+      <p class="roboto-light">{{ movie.description }}</p>
       <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
       <p><strong>Genre:</strong> {{ movie.genre }}</p>
       <p><strong>Director:</strong> {{ movie.director }}</p>
@@ -17,13 +24,13 @@
     </div>
   </div>
   <h2 class="mt-4">Reviews</h2>
-  <div class="list-group">
+  <a href="{% url 'add_review' movie.pk %}" class="btn btn-primary my-2">Write Yours</a>
+  <div class="list-group mb-5">
     {% for review in reviews %}
       <div class="list-group-item">
-        <strong>{{ review.user.username }}</strong> - {{ review.rating }}/10
-        <p>{{ review.comment }}</p>
+        <strong>{{ review.user.username }}</strong> - {{ review.rating }}/10.0
+        <p class="roboto-regular">{{ review.comment }}</p>
       </div>
     {% endfor %}
   </div>
-  <a href="{% url 'add_review' movie.pk %}" class="btn btn-primary mt-4">Add Review</a>
 {% endblock %}

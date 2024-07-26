@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movie, Review, Rating
+from .models import Movie,Review
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -50,5 +50,6 @@ class UserRegisterForm(UserCreationForm):
             raise ValidationError("Passwords do not match.")
         return password2
 
-
+class MovieSearchForm(forms.Form):
+    query = forms.CharField(label='Search for a movie', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title, director, or cast...'}))
 
