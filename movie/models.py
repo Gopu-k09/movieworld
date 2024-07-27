@@ -22,11 +22,4 @@ class Review(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.movie.title}'
-
-class Rating(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.IntegerField()  # e.g., 1-5 stars
-
-    def __str__(self):
-        return f'{self.movie.title} - {self.score}'
+    

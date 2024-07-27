@@ -16,7 +16,6 @@ from .forms import MovieSearchForm
 def movie_list(request):
     current_user=request.user
     review=Review.objects.prefetch_related('movie').all()
-    print(review[0])
     movies = Movie.objects.all()
     return render(request, 'movies/movie_list.html', {'movies': movies,'user':current_user})
 
@@ -25,7 +24,6 @@ def movie_detail(request, pk):
     reviews = Review.objects.filter(movie=movie)
     average_rating=0
     total_review=reviews.count()
-    print(total_review)
     if reviews:
         average_rating = round(sum(review.rating for review in reviews) / reviews.count(),2)
     return render(request, 'movies/movie_detail.html', {'movie': movie, 'reviews': reviews,'avg_rating':average_rating,'total':total_review})
@@ -113,6 +111,7 @@ def movie_search(request):
                 Q(director__icontains=query) |
                 Q(cast__icontains=query)|
                 Q(release_date__icontains=query)|
-                Q(genre__icontains=query)
+                Q(genre__icontains=query)|
+                Q(description__icontains=query)
             )
     return render(request, 'movies/movie_search.html', {'form': form, 'query': query, 'results': results})

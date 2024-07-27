@@ -47,50 +47,14 @@
     </div>
   </div>
 </div>
-
-
-
-
-  <!-- <h1 class="mb-4">Add Review</h1>
-  <form method="post" class="needs-validation" novalidate>
-    {% csrf_token %}
-    <div class="form-group">
-      {{ form.rating.label_tag }}
-      <div class="star-rating">
-          <span data-value="1">&#9733;</span>
-          <span data-value="2">&#9733;</span>
-          <span data-value="3">&#9733;</span>
-          <span data-value="4">&#9733;</span>
-          <span data-value="5">&#9733;</span>
-          <span data-value="6">&#9733;</span>
-          <span data-value="7">&#9733;</span>
-          <span data-value="8">&#9733;</span>
-          <span data-value="9">&#9733;</span>
-          <span data-value="10">&#9733;</span>
-      </div>
-      {{ form.rating }}
-      {% if form.rating.errors %}
-          <div class="alert alert-danger">{{ form.rating.errors }}</div>
-      {% endif %}
-  </div>
-
-  
-    <div class="form-group">
-      {{ form.comment.label_tag }} {{ form.comment }}
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-  </form> -->
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.star-rating span');
         const ratingInput = document.querySelector('input[name="rating"]');
-
         stars.forEach((star, index) => {
             star.addEventListener('click', function () {
                 const ratingValue = index + 1;
                 ratingInput.value = ratingValue;
-
                 stars.forEach((s, i) => {
                     if (i < ratingValue) {
                         s.classList.add('selected');
@@ -119,6 +83,5 @@
         color: gold;
     }
 </style>
-
 
 {% endblock %}

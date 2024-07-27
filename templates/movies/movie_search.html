@@ -4,16 +4,11 @@
 {% block content %}
 <div class="card p-5">
     <h1 class="text-center">Search Movies</h1>
-    <!-- <form method="get" action="{% url 'movie_search' %}">
-        {{ form.as_p }}
-        <button type="submit" class="btn">Search</button>
-    </form> -->
     <div class="container">
         <div class="row justify-content-center">
           <div class="col col-md-8 col-sm-12">
             <form method="get" class="row" action="{% url 'movie_search' %}" style="display:inline;">
               <div class="col">
-                <!-- <label for="id_query">Search for a movie:</label> -->
                 <input type="text" name="query" class="form-control" placeholder="Enter title, director, or cast..." maxlength="100" required="" id="id_query">
               </div>
               <div class="col text-center mt-3">
@@ -41,25 +36,3 @@
 </div>
 {% endblock %}
 
-
-<!-- <div class="card">
-    <h1>Search Movies</h1>
-    <form method="get" action="{% url 'movie_search' %}">
-        {{ form.as_p }}
-        <button type="submit" class="btn">Search</button>
-    </form>
-    {% if query %}
-        <h2>Results for "{{ query }}":</h2>
-        <ul>
-            {% for movie in results %}
-            <li>
-                <a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a><br>
-                <strong>Director:</strong> {{ movie.director }}<br>
-                <strong>Cast:</strong> {{ movie.cast }}
-            </li>
-            {% empty %}
-            <p>No movies found matching your query.</p>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</div> -->
